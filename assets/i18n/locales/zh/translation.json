@@ -13,5 +13,6 @@
   "configUpdated": "配置已更新",
   "redropToEnforce": "此项变更需要重新丢入目录以生效",
   "tipsForIndentType": "目录树代码使用的缩进类型",
-  "tipsForDepth": "决定读取目录时最多到第几层子目录"
+  "tipsForDepth": "决定读取目录时最多到第几层子目录",
+  "dropOrClickHere": "拖放文件夹到这里或点击选择"
 }

@@ -13,5 +13,6 @@
   "configUpdated": "Config has been updated.",
   "redropToEnforce": "If this is modified, redropping is needed for taking effect.",
   "tipsForIndentType": "The indent type of the output code string.",
-  "tipsForDepth": "To decide how deep the dir will be loaded."
+  "tipsForDepth": "To decide how deep the dir will be loaded.",
+  "dropOrClickHere": "Drop a folder here or click to select"
 }

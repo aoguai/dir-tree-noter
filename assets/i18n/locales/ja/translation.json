@@ -13,5 +13,6 @@
   "configUpdated": "設定が更新しました",
   "redropToEnforce": "このオプションの変更にはフォルダを再び投げ込む必要があります",
   "tipsForIndentType": "ディレクトリコードに使用されるインデントタイプ",
-  "tipsForDepth": "最大のディレクトリロードデプスが決められます"
+  "tipsForDepth": "最大のディレクトリロードデプスが決められます",
+  "dropOrClickHere": "フォルダをドロップまたはクリックして選択"
 }

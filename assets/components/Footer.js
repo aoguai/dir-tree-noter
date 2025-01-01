@@ -32,7 +32,7 @@ class Footer extends Component {
           </ul>
         </div>
         <div className="copyright">
-          &copy; 2015 <a href="https://github.com/aoguai">aoguai</a>.
+          &copy; 2025 <a href="https://github.com/aoguai">aoguai</a>.
         </div>
       </div>
     );
