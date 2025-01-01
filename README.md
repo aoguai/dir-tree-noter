@@ -1,4 +1,4 @@
-![Dir Tree Noter cover](https://raw.githubusercontent.com/kenanpengyou/dir-tree-noter/master/intro/dir_tree_noter_cover.png)
+![Dir Tree Noter cover](https://raw.githubusercontent.com/aoguai/dir-tree-noter/master/intro/dir_tree_noter_cover.png)
 
 # Dir Tree Noter
 Generate proper directory tree codes for you. 
@@ -7,7 +7,7 @@ It may be helpful anytime when you are going to describe a directory structure t
 
 ## How to use
 
-![manual](https://raw.githubusercontent.com/kenanpengyou/dir-tree-noter/master/intro/manual.png)
+![manual](https://raw.githubusercontent.com/aoguai/dir-tree-noter/master/intro/manual.png)
 
 ## Key libraries & tools
 
