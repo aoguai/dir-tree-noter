@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/aoguai/dir-tree-noter/issues"
   },
-  "homepage": "https://github.com/aoguai/dir-tree-noter#readme",
+  "homepage": "https://github.com/aoguai/dir-tree-noter/tree/master/docs/README.md",
   "devDependencies": {
     "autoprefixer": "^9.8.8",
     "babel-core": "^6.26.3",
