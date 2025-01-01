@@ -4,7 +4,7 @@
   "description": "Generate proper directory tree codes for you.",
   "scripts": {
     "start": "node server",
-    "build": "webpack --config webpack.production.config.js -p",
+    "build": "webpack --config webpack.production.config.js --mode production",
     "release": "npm run build & http-server -p 8000",
     "pre-deploy": "git clone https://github.com/aoguai/dir-tree-noter.git --branch gh-pages public"
   },
