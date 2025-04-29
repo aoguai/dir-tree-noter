@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { detectDrop, loadingDrop, finishRead } from "../actions";
+import { detectDrop, loadingDrop, finishRead, setFirstLevelFolders, setExcludedFolders } from "../actions";
 import dirReader from "../helpers/dirReader";
 import treeify from "../helpers/treeify";
 import outputPresets from "../presets/output";
@@ -13,7 +13,11 @@ class Header extends Component {
     this.handleDragLeave = this.handleDragLeave.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleExcludeFoldersConfirm = this.handleExcludeFoldersConfirm.bind(this);
+    this.handleExcludeFoldersCancel = this.handleExcludeFoldersCancel.bind(this);
     this.lastTrees = null;
+    this.tempTrees = null;
+    this.rootFolderName = null;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,7 +39,14 @@ class Header extends Component {
 
   publishTrees(trees, nextProps) {
     const { indentType } = nextProps || this.props;
-    let output = outputPresets;
+    let output = {
+      content: ">_<",
+      rootName: "dir-tree"
+    };
+
+    if (!trees && this.lastTrees) {
+      trees = this.lastTrees;
+    }
 
     if (trees instanceof Object && Object.keys(trees).length > 0) {
       let treeString = treeify.exec(trees, indentType);
@@ -46,18 +57,96 @@ class Header extends Component {
 
       output.content = treeString;
       this.lastTrees = trees;
+    } else if (this.rootFolderName) {
+      const emptyTree = {};
+      emptyTree[this.rootFolderName] = {};
+      let treeString = treeify.exec(emptyTree, indentType);
+      
+      output.rootName = this.rootFolderName;
+      output.content = treeString;
+      this.lastTrees = emptyTree;
     } else {
       Materialize.toast(i18n.t("browserNotSupported"), 4000);
-      this.lastTrees = null;
+      if (!this.lastTrees) {
+        this.lastTrees = null;
+      }
     }
 
     this.props.finish(output);
   }
 
+  getFirstLevelFolders(trees) {
+    if (!trees || typeof trees !== 'object') return [];
+    
+    const keys = Object.keys(trees);
+    if (keys.length === 1 && typeof trees[keys[0]] === 'object') {
+      const rootFolder = trees[keys[0]];
+      this.rootFolderName = keys[0];
+      
+      return Object.keys(rootFolder).filter(key => {
+        return typeof rootFolder[key] === 'object';
+      });
+    }
+    
+    return Object.keys(trees).filter(key => {
+      return typeof trees[key] === 'object';
+    });
+  }
+
+  filterExcludedFolders(trees, excludedFolders) {
+    if (!trees || !excludedFolders || excludedFolders.length === 0) {
+      return trees;
+    }
+
+    const keys = Object.keys(trees);
+    if (keys.length === 1 && this.rootFolderName && keys[0] === this.rootFolderName) {
+      const rootFolder = trees[this.rootFolderName];
+      const filteredRoot = {};
+      
+      Object.keys(rootFolder).forEach(key => {
+        if (typeof rootFolder[key] !== 'object' || !excludedFolders.includes(key)) {
+          filteredRoot[key] = rootFolder[key];
+        }
+      });
+      
+      const filteredTrees = {};
+      filteredTrees[this.rootFolderName] = filteredRoot;
+      
+      return filteredTrees;
+    }
+    
+    const filteredTrees = {};
+    
+    Object.keys(trees).forEach(key => {
+      if (!excludedFolders.includes(key)) {
+        filteredTrees[key] = trees[key];
+      }
+    });
+    
+    return filteredTrees;
+  }
+
   execReader(dataTransfer) {
-    const { maxDepth } = this.props;
+    const { maxDepth, excludeFolders } = this.props;
+    
     const readCallback = (files, trees) => {
-      this.publishTrees(trees);
+      if (excludeFolders) {
+        this.tempTrees = trees;
+        
+        const firstLevelFolders = this.getFirstLevelFolders(trees);
+        this.props.setFirstLevelFolders(firstLevelFolders);
+        
+        if (firstLevelFolders.length > 0) {
+          this.props.showExcludeFoldersModal({
+            onConfirm: this.handleExcludeFoldersConfirm,
+            onCancel: this.handleExcludeFoldersCancel
+          });
+        } else {
+          this.publishTrees(trees);
+        }
+      } else {
+        this.publishTrees(trees);
+      }
     };
 
     this.props.loading();
@@ -65,6 +154,22 @@ class Header extends Component {
       maxDepth,
       onComplete: readCallback.bind(this),
     });
+  }
+
+  handleExcludeFoldersConfirm(excludedFolders) {
+    this.props.setExcludedFolders(excludedFolders);
+    
+    const filteredTrees = this.filterExcludedFolders(this.tempTrees, excludedFolders);
+    
+    this.publishTrees(filteredTrees);
+    
+    this.tempTrees = null;
+  }
+
+  handleExcludeFoldersCancel() {
+    this.publishTrees(this.tempTrees);
+    
+    this.tempTrees = null;
   }
 
   handleDragEnter(e) {
@@ -156,6 +261,7 @@ function mapStateToProps(state) {
     optionActual: optionActual,
     maxDepth: state.option.actual.depth,
     indentType: state.option.actual.indent,
+    excludeFolders: state.option.actual.excludeFolders,
     needRefresh: state.upload.needRefresh,
     isComplete: state.upload.isComplete,
     isBoxActive: state.upload.isBoxActive,
@@ -168,6 +274,8 @@ function mapDispatchToProps(dispatch) {
     dragOut: () => dispatch(detectDrop(false)),
     loading: () => dispatch(loadingDrop()),
     finish: (output) => dispatch(finishRead(output)),
+    setFirstLevelFolders: (folders) => dispatch(setFirstLevelFolders(folders)),
+    setExcludedFolders: (folders) => dispatch(setExcludedFolders(folders))
   };
 }
 

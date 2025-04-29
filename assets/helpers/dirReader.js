@@ -2,16 +2,13 @@ var dirReader = {};
 
 // assign a file or a directory to the tree object
 var assignToObject = function (trees, path, fileName) {
-  // 移除开头的斜杠
   path = path.replace(/^[\/\\]/, "");
 
   if (fileName) {
-    // 处理文件
     const fullPath = path ? `${path}/${fileName}` : fileName;
     const parts = fullPath.split("/");
     let current = trees;
 
-    // 创建目录结构
     for (let i = 0; i < parts.length - 1; i++) {
       const part = parts[i];
       if (!current[part]) {
@@ -20,14 +17,11 @@ var assignToObject = function (trees, path, fileName) {
       current = current[part];
     }
 
-    // 添加文件
     current[parts[parts.length - 1]] = "file";
   } else {
-    // 处理目录
     const parts = path.split("/").filter((p) => p);
     let current = trees;
 
-    // 创建目录结构
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
       if (!current[part]) {

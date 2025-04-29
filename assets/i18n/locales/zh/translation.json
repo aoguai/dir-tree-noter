@@ -14,5 +14,15 @@
   "redropToEnforce": "此项变更需要重新丢入目录以生效",
   "tipsForIndentType": "目录树代码使用的缩进类型",
   "tipsForDepth": "决定读取目录时最多到第几层子目录",
-  "dropOrClickHere": "拖放文件夹到这里或点击选择"
+  "dropOrClickHere": "拖放文件夹到这里或点击选择",
+  "excludeFolders": "排除文件夹",
+  "excludeFoldersOption": "排除文件夹选项",
+  "tipsForExcludeFolders": "启用后可以选择排除目录树中的一级文件夹",
+  "searchFolders": "搜索文件夹",
+  "selectAll": "全选",
+  "selectedCount": "已选择: {{count}}",
+  "noFoldersFound": "未找到文件夹",
+  "on": "开启",
+  "off": "关闭",
+  "cancel": "取消"
 }

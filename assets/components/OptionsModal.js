@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {submitDisplay, setDepthDisplay, setIndentDisplay,
-    resetOptionDisplay, restoreDisplay, refreshReader} from "../actions";
+    resetOptionDisplay, restoreDisplay, refreshReader, setExcludeFoldersDisplay} from "../actions";
 import i18n from "../i18n";
 
 class OptionsModal extends Component {
@@ -12,6 +12,7 @@ class OptionsModal extends Component {
         this.handleResetClick = this.handleResetClick.bind(this);
         this.handleRangeChange = this.handleRangeChange.bind(this);
         this.handleIndentChange = this.handleIndentChange.bind(this);
+        this.handleExcludeFoldersChange = this.handleExcludeFoldersChange.bind(this);
     }
 
     componentDidMount() {
@@ -46,8 +47,12 @@ class OptionsModal extends Component {
         this.props.changeIndentDisplay(e.target.value);
     }
 
+    handleExcludeFoldersChange(e){
+        this.props.changeExcludeFoldersDisplay(e.target.checked);
+    }
+
     render(){
-        const {depth, indent, actualDepth, isComplete} = this.props;
+        const {depth, indent, excludeFolders, actualDepth, isComplete} = this.props;
         var depthNote = null;
 
         if(isComplete && actualDepth !== depth){
@@ -79,6 +84,22 @@ class OptionsModal extends Component {
                         </p>
                     </div>
                 </div>
+                <div className="input-field">
+                    <div className="field-text">
+                        <span className="tooltipped" data-tooltip={i18n.t("tipsForExcludeFolders")} data-delay="50" data-position="right">
+                            {i18n.t("excludeFoldersOption")}
+                        </span>
+                        {isComplete && <span className="option-note orange-text">← {i18n.t("redropToEnforce")}</span>}
+                    </div>
+                    <div className="switch">
+                        <label>
+                            {i18n.t("off")}
+                            <input type="checkbox" checked={excludeFolders} onChange={this.handleExcludeFoldersChange} />
+                            <span className="lever"></span>
+                            {i18n.t("on")}
+                        </label>
+                    </div>
+                </div>
             </div>
             <div className="modal-footer">
                 <a href="javascript:" className="modal-action modal-close waves-effect waves-green btn btn-combined" onClick={this.handleConfirmClick}>{i18n.t("confirm")}</a>
@@ -95,6 +116,7 @@ function mapStateToProps(state) {
     return {
         depth: state.option.display.depth,
         indent: state.option.display.indent,
+        excludeFolders: state.option.display.excludeFolders,
         actualDepth: state.option.actual.depth,
         isComplete: state.upload.isComplete
     };
@@ -104,6 +126,7 @@ function mapDispatchToProps(dispatch) {
     return {
         changeDepthDisplay: (value) => dispatch(setDepthDisplay(value)),
         changeIndentDisplay: (value) => dispatch(setIndentDisplay(value)),
+        changeExcludeFoldersDisplay: (value) => dispatch(setExcludeFoldersDisplay(value)),
         submitDisplay: (value) => dispatch(submitDisplay(value)),
         resetOptionDisplay: () => dispatch(resetOptionDisplay()),
         restoreDisplay: () => dispatch(restoreDisplay()),

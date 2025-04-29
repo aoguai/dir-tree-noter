@@ -14,6 +14,7 @@ class Editor extends Component {
         this.handleOptionsClick = this.handleOptionsClick.bind(this);
         this.handleCopyClick = this.handleCopyClick.bind(this);
         this.isDownloadAttrSupported = ("download" in document.createElement("a"));
+        this.copyingInProgress = false;
     }
 
     handleOptionsClick(e) {
@@ -21,16 +22,46 @@ class Editor extends Component {
     }
 
     handleCopyClick(e) {
+        if (this.copyingInProgress) {
+            return;
+        }
+        
+        this.copyingInProgress = true;
+        setTimeout(() => {
+            this.copyingInProgress = false;
+        }, 1000);
+        
         let contentEl = this.refs.editorContent.getWrappedInstance().refs.code;
+        
+        try {
+            if (navigator.clipboard && contentEl.textContent) {
+                navigator.clipboard.writeText(contentEl.textContent)
+                    .then(() => {
+                        Materialize.toast(i18n.t("copyComplete"), 4000);
+                    })
+                    .catch(() => {
+                        this.fallbackCopy(contentEl);
+                    });
+                return;
+            }
+            
+            this.fallbackCopy(contentEl);
+        } catch (err) {
+            console.error("Copy failed:", err);
+            Materialize.toast(i18n.t("browserNotSupported"), 4000);
+        }
+    }
+    
+    fallbackCopy(contentEl) {
         clip.selectElementText(contentEl);
-
+        
         if(clip.getSelectionText().length > 0){
             let copySuccess = clip.copySelectionText();
             clip.clearSelection();
-
+            
             if(copySuccess){
                 Materialize.toast(i18n.t("copyComplete"), 4000);
-            }else{
+            } else {
                 Materialize.toast(i18n.t("browserNotSupported"), 4000);
             }
         }

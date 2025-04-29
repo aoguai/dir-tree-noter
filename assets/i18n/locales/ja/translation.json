@@ -14,5 +14,15 @@
   "redropToEnforce": "このオプションの変更にはフォルダを再び投げ込む必要があります",
   "tipsForIndentType": "ディレクトリコードに使用されるインデントタイプ",
   "tipsForDepth": "最大のディレクトリロードデプスが決められます",
-  "dropOrClickHere": "フォルダをドロップまたはクリックして選択"
+  "dropOrClickHere": "フォルダをドロップまたはクリックして選択",
+  "excludeFolders": "フォルダを除外",
+  "excludeFoldersOption": "フォルダ除外オプション",
+  "tipsForExcludeFolders": "ディレクトリツリーから最上階層のフォルダを除外できます",
+  "searchFolders": "フォルダを検索",
+  "selectAll": "すべて選択",
+  "selectedCount": "選択済み: {{count}}",
+  "noFoldersFound": "フォルダが見つかりません",
+  "on": "オン",
+  "off": "オフ",
+  "cancel": "キャンセル"
 }

@@ -29,6 +29,12 @@ export default function(state = initialState, action) {
                     indent: action.value
                 }
             });
+        case "SET_EXCLUDE_FOLDERS_DISPLAY":
+            return state.mergeDeep({
+                display: {
+                    excludeFolders: action.value
+                }
+            });
         case "RESET_OPTION_DISPLAY":
             return state.mergeDeep({
                 display: Immutable.Map(optionPresets)

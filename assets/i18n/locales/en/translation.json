@@ -14,5 +14,15 @@
   "redropToEnforce": "If this is modified, redropping is needed for taking effect.",
   "tipsForIndentType": "The indent type of the output code string.",
   "tipsForDepth": "To decide how deep the dir will be loaded.",
-  "dropOrClickHere": "Drop a folder here or click to select"
+  "dropOrClickHere": "Drop a folder here or click to select",
+  "excludeFolders": "Exclude Folders",
+  "excludeFoldersOption": "Exclude Folders Option",
+  "tipsForExcludeFolders": "Enable to select and exclude first-level folders from the directory tree.",
+  "searchFolders": "Search folders",
+  "selectAll": "Select All",
+  "selectedCount": "Selected: {{count}}",
+  "noFoldersFound": "No folders found",
+  "on": "On",
+  "off": "Off",
+  "cancel": "Cancel"
 }

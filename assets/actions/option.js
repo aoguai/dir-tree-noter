@@ -13,6 +13,11 @@ const setIndentDisplay = (value) => ({
     value
 });
 
+const setExcludeFoldersDisplay = (value) => ({
+    type: "SET_EXCLUDE_FOLDERS_DISPLAY",
+    value
+});
+
 const resetOptionDisplay = () => ({
     type: "RESET_OPTION_DISPLAY"
 });
@@ -27,5 +32,6 @@ const refreshReader = () => ({
 
 export default {
     submitDisplay, setDepthDisplay,
-    setIndentDisplay, resetOptionDisplay, restoreDisplay, refreshReader
+    setIndentDisplay, resetOptionDisplay, restoreDisplay, refreshReader,
+    setExcludeFoldersDisplay
 };
