@@ -36,6 +36,6 @@
 
 ## ライセンス
 
-このプロジェクトは [jianzhichun](https://github.com/jianzhichun/dir-tree-noter) のプロジェクトをフォークし、機能を強化したものです。
+このプロジェクトは [kenanpengyou](https://github.com/kenanpengyou/dir-tree-noter) のプロジェクトをフォークし、機能を強化したものです。
 
 [MIT License](https://github.com/aoguai/dir-tree-noter/blob/master/LICENSE)

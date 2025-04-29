@@ -36,6 +36,6 @@ It may be helpful anytime when you are going to describe a directory structure t
 
 ## License
 
-This project is forked from [jianzhichun](https://github.com/jianzhichun/dir-tree-noter) with enhancements.
+This project is forked from [kenanpengyou](https://github.com/kenanpengyou/dir-tree-noter) with enhancements.
 
 [MIT License](https://github.com/aoguai/dir-tree-noter/blob/master/LICENSE)

@@ -36,6 +36,6 @@
 
 ## 许可证
 
-本项目基于 [jianzhichun](https://github.com/jianzhichun/dir-tree-noter) 的项目进行功能增强。
+本项目基于 [kenanpengyou](https://github.com/kenanpengyou/dir-tree-noter) 的项目进行功能增强。
 
 [MIT License](https://github.com/aoguai/dir-tree-noter/blob/master/LICENSE)
